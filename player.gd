@@ -7,6 +7,9 @@ const MAX_SPEED = 64
 const GRAVITY = 350
 const JUMP_FORCE = 150
 
+# in seconds, how long will a jump press be valid...?
+const JUMP_BUFFER = 0.1
+
 # acceleration = speed increase/second when moving
 const ACCELERATION = 512
 const AIR_ACCELERATION = 200
@@ -19,10 +22,12 @@ onready var sprite = $Sprite
 
 var motion = Vector2.ZERO
 var floor_timer = 0
+var jump_buffer = 0
 
 func _ready():
 	motion = Vector2.ZERO
 	floor_timer = 0
+	jump_buffer = 0
 	
 func _physics_process(delta):
 	var x_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -49,8 +54,13 @@ func _physics_process(delta):
 	
 	motion.y += GRAVITY * delta
 	
+	jump_buffer = min(jump_buffer + delta, JUMP_BUFFER + 1)
+	if Input.is_action_just_pressed("ui_up"):
+		jump_buffer = 0
+	
 	if on_floor:
-		if Input.is_action_just_pressed("ui_up"):
+		if jump_buffer < JUMP_BUFFER:
+			jump_buffer = JUMP_BUFFER + 1
 			motion.y = -JUMP_FORCE
 	
 	motion = move_and_slide(motion, Vector2.UP)
