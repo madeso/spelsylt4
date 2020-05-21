@@ -2,9 +2,14 @@ extends KinematicBody2D
 
 # number of seconds player can jump after leaving ground
 const ON_FLOOR_TIME = 0.1
+const ON_WALL_TIME = 0.1
 
+const WALL_JUMP_SPEED = 50
 const MAX_SPEED = 64
 const GRAVITY = 400
+
+const WALL_SLIDE_SPEED = 12
+const WALL_SLIDE_CHANGE = 0.7
 
 # jump while while jumping
 const JUMP_FORCE = 140
@@ -33,6 +38,7 @@ var floor_timer = 0
 var jump_buffer = 0
 var jump_hold = 0
 var holding_jump = false
+var wall_timer = 0
 
 func _ready():
 	motion = Vector2.ZERO
@@ -40,6 +46,7 @@ func _ready():
 	jump_buffer = 0
 	jump_hold = 0
 	holding_jump = false
+	wall_timer = 0
 	
 func _physics_process(delta):
 	var x_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -48,8 +55,14 @@ func _physics_process(delta):
 		floor_timer = 0
 	else:
 		floor_timer += delta
+		
+	if is_on_wall():
+		wall_timer = 0
+	else:
+		wall_timer += delta
 	
 	var on_floor = floor_timer < ON_FLOOR_TIME
+	var on_wall = wall_timer < ON_WALL_TIME
 	
 	if x_input != 0:
 		var speed = AIR_ACCELERATION
@@ -64,7 +77,15 @@ func _physics_process(delta):
 			friction = FRICTION
 		motion.x = sign(motion.x) * max(0, abs(motion.x) - friction * delta)
 	
-	motion.y += GRAVITY * delta
+	var facing_right = not sprite.flip_h
+	var sign_dir = -1
+	if facing_right:
+		sign_dir = 1
+	
+	if on_wall and not on_floor and motion.y > WALL_SLIDE_SPEED:
+		motion.y = max(motion.y - delta*WALL_SLIDE_CHANGE, WALL_SLIDE_SPEED)
+	else:
+		motion.y += GRAVITY * delta
 	
 	jump_buffer = min(jump_buffer + delta, JUMP_BUFFER + 1)
 	if Input.is_action_just_pressed("ui_up"):
@@ -72,13 +93,22 @@ func _physics_process(delta):
 	
 	if on_floor:
 		if jump_buffer < JUMP_BUFFER:
+			# standard jump from floor
 			jump_buffer = JUMP_BUFFER + 1
 			motion.y = -JUMP_FORCE
 			floor_timer = ON_FLOOR_TIME + 1
 			jump_hold = 0
 			holding_jump = true
 	else:
-		if Input.is_action_pressed("ui_up"):
+		if on_wall and jump_buffer < JUMP_BUFFER:
+			# wall jump
+			jump_buffer = JUMP_BUFFER + 1
+			motion.y = -JUMP_FORCE
+			floor_timer = ON_FLOOR_TIME + 1
+			jump_hold = 0
+			holding_jump = true
+			motion.x = -WALL_JUMP_SPEED * sign_dir
+		elif Input.is_action_pressed("ui_up"):
 			jump_hold = min(jump_hold + delta, JUMP_HOLD + 1)
 		else:
 			jump_hold = JUMP_HOLD + 1
