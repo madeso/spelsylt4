@@ -13,5 +13,6 @@ my entry in the kodsnack gamejam: spelsylt 4
 | 04  | 21/5 |  1.0  | added wall jump and wall slide |
 | 05  | 21/5 |  0.0  | nothing done. watched tv and dedusted computer |
 | 06  | 22/5 |  0.0  | nothing done. tried to install aseprite on arch, failed so will pixel on windows. updated windows installtion |
+| 07  | 23/5 |  0.0  | nothing done. made lot of food and fought the virus in pandemic season 2 |
 |  |  |  |  |
 
