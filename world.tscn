@@ -476,7 +476,6 @@ position = Vector2( 8, 152 )
 
 [node name="Tentacle2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 224, 72 )
-frame = 3
 
 [node name="Tentacle" parent="." instance=ExtResource( 4 )]
 position = Vector2( 168, 72 )
