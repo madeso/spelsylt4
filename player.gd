@@ -33,12 +33,15 @@ const AIR_FRICTION = 200
 
 onready var sprite = $Sprite
 
+enum Anim {Unknown, Idle, Walk, Jump, Slide}
+
 var motion = Vector2.ZERO
 var floor_timer = 0
 var jump_buffer = 0
 var jump_hold = 0
 var holding_jump = false
 var wall_timer = 0
+var old_anim = Anim.Unknown
 
 func _ready():
 	motion = Vector2.ZERO
@@ -47,6 +50,7 @@ func _ready():
 	jump_hold = 0
 	holding_jump = false
 	wall_timer = 0
+	old_anim = Anim.Unknown
 	
 func _physics_process(delta):
 	var x_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -121,3 +125,29 @@ func _physics_process(delta):
 				holding_jump = false
 	
 	motion = move_and_slide(motion, Vector2.UP)
+	
+	var anim = Anim.Idle
+	
+	# determine animation state
+	if on_floor:
+		if abs(motion.x) > 0:
+			anim = Anim.Walk
+		else:
+			anim = Anim.Idle
+	elif on_wall:
+		anim = Anim.Slide
+	else:
+		anim = Anim.Jump
+	
+	# apply new animation if different
+	if anim != old_anim:
+		if anim == Anim.Idle:
+			sprite.animation = "Idle"
+		elif anim == Anim.Walk:
+			sprite.animation = "Walk"
+		elif anim == Anim.Jump:
+			sprite.animation = "Jump"
+		elif anim == Anim.Slide:
+			sprite.animation = "Slide"
+		old_anim = anim
+	
