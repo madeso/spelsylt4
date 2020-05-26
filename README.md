@@ -15,5 +15,6 @@ my entry in the kodsnack gamejam: spelsylt 4
 | 06  | 23/5 |  0.0  | nothing done. tried to install aseprite on arch, failed so will pixel on windows. updated windows installtion |
 | 07  | 24/5 |  0.0  | nothing done. made lot of food and fought the virus in pandemic season 2 |
 | 08  | 25/5 |  3.0  | spent way too long to making tileset, tried tileetter lite and cleaned up where it did wrong. also started on player |
+| 09  | 26/5 |  2.0  | added eyes, tentacles and player animation and started on bug and bullets and particles sprites |
 |  |  |  |  |
 
