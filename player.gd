@@ -31,6 +31,7 @@ const AIR_ACCELERATION = 200
 const FRICTION = 512
 const AIR_FRICTION = 200
 
+onready var bullet_scene = preload("res://bullet.tscn")
 onready var sprite = $Sprite
 
 enum Anim {Unknown, Idle, Walk, Jump, Slide}
@@ -42,6 +43,7 @@ var jump_hold = 0
 var holding_jump = false
 var wall_timer = 0
 var old_anim = Anim.Unknown
+var gun_heat = 0
 
 func _ready():
 	motion = Vector2.ZERO
@@ -138,6 +140,23 @@ func _physics_process(delta):
 		anim = Anim.Slide
 	else:
 		anim = Anim.Jump
+	
+	if Input.get_action_strength("ui_select") > 0.5:
+		gun_heat -= delta
+		if gun_heat <= 0:
+			gun_heat += 0.1
+			var bullet = bullet_scene.instance()
+			bullet.facing_right = !sprite.flip_h
+			if anim == Anim.Slide:
+				bullet.facing_right = !bullet.facing_right
+			var d = Vector2(8, -4)
+			if !bullet.facing_right:
+				d.x *= -1
+			bullet.set_position( get_position() + d )
+			get_parent().add_child(bullet)
+			
+	else:
+		gun_heat = 0
 	
 	# apply new animation if different
 	if anim != old_anim:
