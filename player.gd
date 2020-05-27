@@ -27,6 +27,8 @@ const JUMP_BUFFER = 0.1
 const ACCELERATION = 512
 const AIR_ACCELERATION = 200
 
+const WALK = 0.15
+
 # friction = speed reduce/second when not moving
 const FRICTION = 512
 const AIR_FRICTION = 200
@@ -44,11 +46,21 @@ var holding_jump = false
 var wall_timer = 0
 var old_anim = Anim.Unknown
 var gun_heat = 0
+var walk_timer = 0
+
+onready var sfx_jump = $SfxJump
+onready var sfx_jump2 = $SfxJump2
+onready var sfx_gun = $SfxGun
+onready var sfx_walk = $SfxWalk
+
+func play(sfx):
+	sfx.stop()
+	sfx.play()
 
 func _ready():
 	motion = Vector2.ZERO
 	floor_timer = 0
-	jump_buffer = 0
+	jump_buffer = JUMP_BUFFER + 1
 	jump_hold = 0
 	holding_jump = false
 	wall_timer = 0
@@ -105,9 +117,11 @@ func _physics_process(delta):
 			floor_timer = ON_FLOOR_TIME + 1
 			jump_hold = 0
 			holding_jump = true
+			play(sfx_jump)
 	else:
 		if on_wall and jump_buffer < JUMP_BUFFER:
 			# wall jump
+			play(sfx_jump2)
 			jump_buffer = JUMP_BUFFER + 1
 			motion.y = -JUMP_FORCE
 			floor_timer = ON_FLOOR_TIME + 1
@@ -140,10 +154,20 @@ func _physics_process(delta):
 		anim = Anim.Slide
 	else:
 		anim = Anim.Jump
+		
+	if anim == Anim.Walk:
+		walk_timer -= delta
+		if walk_timer < 0:
+			walk_timer += WALK
+			play(sfx_walk)
+	else:
+		walk_timer = 0
+			
 	
 	if Input.get_action_strength("ui_select") > 0.5:
 		gun_heat -= delta
 		if gun_heat <= 0:
+			play(sfx_gun)
 			gun_heat += 0.1
 			var bullet = bullet_scene.instance()
 			bullet.facing_right = !sprite.flip_h
