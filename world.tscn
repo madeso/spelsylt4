@@ -478,7 +478,6 @@ position = Vector2( 8, 152 )
 
 [node name="Tentacle2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 264, 168 )
-frame = 0
 
 [node name="Tentacle" parent="." instance=ExtResource( 4 )]
 position = Vector2( 168, 72 )
@@ -494,6 +493,18 @@ position = Vector2( 64, 72 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 132, 70 )
+
+[node name="KinematicBody2D2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 224, 176 )
+
+[node name="KinematicBody2D3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 288, 176 )
+
+[node name="KinematicBody2D" parent="." instance=ExtResource( 5 )]
+position = Vector2( 128, 112 )
+
+[node name="KinematicBody2D4" parent="." instance=ExtResource( 5 )]
+position = Vector2( 64, 160 )
 
 [node name="bug" parent="." instance=ExtResource( 5 )]
 position = Vector2( 224, 80 )
