@@ -1,13 +1,22 @@
 extends KinematicBody2D
 
+onready var gib_scene = preload("res://buggib.tscn")
+
 const SPEED = 8
 const CLIFF_DISTANCE = 10
 
 var move = Vector2.ZERO
 var facing_right = true
 
+func gib():
+	var g = gib_scene.instance()
+	g.set_position( get_position() )
+	get_parent().add_child(g)
+
 func damage():
 	self.queue_free()
+	for n in range(5):
+		gib()
 
 func _ready():
 	pass # Replace with function body.
