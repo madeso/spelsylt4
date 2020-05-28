@@ -15,3 +15,5 @@ func _physics_process(delta):
 	var collision = move_and_collide(motion * delta)
 	if collision != null:
 		self.queue_free()
+		if collision.collider.has_method("damage"):
+			collision.collider.damage()

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://bug.png" type="Texture" id=1]
+[ext_resource path="res://bug.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.4902, 1.84596 )
@@ -23,6 +24,7 @@ animations = [ {
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 collision_layer = 2049
+script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -2 )
