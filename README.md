@@ -17,5 +17,6 @@ my entry in the kodsnack gamejam: spelsylt 4
 | 08  | 25/5 |  3.0  | spent way too long to making tileset, tried tileetter lite and cleaned up where it did wrong. also started on player |
 | 09  | 26/5 |  2.0  | added eyes, tentacles and player animation and started on bug and bullets and particles sprites |
 | 10  | 27/5 |  2.0  | added some sounds and shooting a gun, started working on bug enemy |
+| 11  | 28/5 |  1.5  | added ai for bug, and spawning a few gibs when it is killed |
 |  |  |  |  |
 
