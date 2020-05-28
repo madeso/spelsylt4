@@ -7,6 +7,7 @@ const CLIFF_DISTANCE = 10
 
 var move = Vector2.ZERO
 var facing_right = true
+onready var sprite = $AnimatedSprite
 
 func gib():
 	var g = gib_scene.instance()
@@ -19,6 +20,7 @@ func damage():
 		gib()
 
 func _ready():
+	sprite.playing = true
 	pass # Replace with function body.
 
 func _physics_process(delta):

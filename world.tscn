@@ -478,22 +478,19 @@ position = Vector2( 8, 152 )
 
 [node name="Tentacle2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 264, 168 )
+frame = 0
 
 [node name="Tentacle" parent="." instance=ExtResource( 4 )]
 position = Vector2( 168, 72 )
-frame = 1
 
 [node name="Tentacle3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 80, 152 )
-frame = 1
 
 [node name="Tentacle4" parent="." instance=ExtResource( 4 )]
 position = Vector2( 240, 168 )
-frame = 2
 
 [node name="Tentacle5" parent="." instance=ExtResource( 4 )]
 position = Vector2( 64, 72 )
-frame = 1
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 132, 70 )
