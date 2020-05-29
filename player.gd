@@ -34,6 +34,10 @@ const FRICTION = 512
 const AIR_FRICTION = 200
 const CAM_OFFSET = 70
 
+
+const CAMERA_MAX_TRANSLATION_SHAKE = 10
+const CAMERA_TRAUMA_DECREASE = 0.7
+
 onready var bullet_scene = preload("res://bullet.tscn")
 onready var sprite = $Sprite
 onready var camera = $Camera2D
@@ -49,11 +53,21 @@ var wall_timer = 0
 var old_anim = Anim.Unknown
 var gun_heat = 0
 var walk_timer = 0
+var cox = 0
+var trauma = 0
+var total_time = 0
 
 onready var sfx_jump = $SfxJump
 onready var sfx_jump2 = $SfxJump2
 onready var sfx_gun = $SfxGun
 onready var sfx_walk = $SfxWalk
+
+onready var sfx_land = $SfxLand
+onready var sfx_semihardland = $SfxSemiHardLand
+onready var sfx_hardland = $SfxHardLand
+
+func add_trauma(val):
+	trauma = clamp(trauma + val, 0, 1)
 
 func play(sfx):
 	sfx.stop()
@@ -144,7 +158,20 @@ func _physics_process(delta):
 				motion.y = -JUMP_FORCE_AFTER
 				holding_jump = false
 	
+	var oldmotiony = motion.y
 	motion = move_and_slide(motion, Vector2.UP)
+	
+	# "falldamage"
+	if motion.y == 0 and oldmotiony > 90 and not on_floor and not on_wall:
+		if oldmotiony > 300:
+			play(sfx_hardland)
+			add_trauma(0.8)
+		elif oldmotiony > 200:
+			play(sfx_semihardland)
+			add_trauma(0.5)
+		else:
+			play(sfx_land)
+			add_trauma(0.1)
 	
 	var anim = Anim.Idle
 	
@@ -185,13 +212,21 @@ func _physics_process(delta):
 	else:
 		gun_heat = 0
 	
+	total_time += delta
+	trauma = clamp(trauma - delta * CAMERA_TRAUMA_DECREASE, 0, 1)
+	var camera_shake = trauma * trauma
+	var offset_x = camera_shake * CAMERA_MAX_TRANSLATION_SHAKE * rand_range(-1, 1)
+	var offset_y = camera_shake * CAMERA_MAX_TRANSLATION_SHAKE * rand_range(-1, 1)
+	
 	var tx = 0
 	if is_shooting:
 		if facing_right:
 			tx = CAM_OFFSET
 		else:
 			tx = -CAM_OFFSET
-	camera.offset.x = lerp(camera.offset.x, tx, 0.1)
+	cox = lerp(cox, tx, 0.1)
+	camera.offset.x = cox + offset_x
+	camera.offset.y = 0 + offset_y
 	
 	# apply new animation if different
 	if anim != old_anim:
