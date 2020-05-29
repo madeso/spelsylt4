@@ -4,6 +4,8 @@ const SPEED = 180
 var facing_right = false
 onready var sprite = $Sprite
 
+onready var die_scene = preload("res://bullet-die.tscn")
+
 func _physics_process(delta):
 	var motion = Vector2.ZERO
 	sprite.flip_h = !facing_right
@@ -17,3 +19,7 @@ func _physics_process(delta):
 		self.queue_free()
 		if collision.collider.has_method("damage"):
 			collision.collider.damage()
+		else:
+			var g = die_scene.instance()
+			g.set_position( get_position() )
+			get_parent().add_child(g)
