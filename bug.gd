@@ -1,13 +1,17 @@
 extends KinematicBody2D
 
 onready var gib_scene = preload("res://buggib.tscn")
+onready var destruction_scene = preload("res://bug_destruction.tscn")
 
 const SPEED = 8
 const CLIFF_DISTANCE = 10
 
 var move = Vector2.ZERO
 var facing_right = true
+var health = 3
 onready var sprite = $AnimatedSprite
+
+onready var sfx_hurt = $SfxHurt
 
 func gib():
 	var g = gib_scene.instance()
@@ -15,9 +19,16 @@ func gib():
 	get_parent().add_child(g)
 
 func damage():
-	self.queue_free()
-	for n in range(5):
-		gib()
+	if health > 1:
+		health -= 1
+		sfx_hurt.play()
+	else:
+		var g = destruction_scene.instance()
+		g.set_position( get_position() )
+		get_parent().add_child(g)
+		self.queue_free()
+		for n in range(5):
+			gib()
 
 func _ready():
 	sprite.playing = true
