@@ -32,9 +32,11 @@ const WALK = 0.15
 # friction = speed reduce/second when not moving
 const FRICTION = 512
 const AIR_FRICTION = 200
+const CAM_OFFSET = 70
 
 onready var bullet_scene = preload("res://bullet.tscn")
 onready var sprite = $Sprite
+onready var camera = $Camera2D
 
 enum Anim {Unknown, Idle, Walk, Jump, Slide}
 
@@ -68,6 +70,7 @@ func _ready():
 	
 func _physics_process(delta):
 	var x_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	var is_shooting =  Input.get_action_strength("ui_select") > 0.5
 	
 	if is_on_floor():
 		floor_timer = 0
@@ -88,7 +91,8 @@ func _physics_process(delta):
 			speed = ACCELERATION
 		motion.x += x_input * speed * delta
 		motion.x = clamp(motion.x, -MAX_SPEED, MAX_SPEED)
-		sprite.flip_h = x_input < 0
+		if not (is_shooting and not (on_wall and not on_floor)):
+			sprite.flip_h = x_input < 0
 	else:
 		var friction = AIR_FRICTION
 		if on_floor:
@@ -162,9 +166,9 @@ func _physics_process(delta):
 			play(sfx_walk)
 	else:
 		walk_timer = 0
-			
 	
-	if Input.get_action_strength("ui_select") > 0.5:
+	
+	if is_shooting:
 		gun_heat -= delta
 		if gun_heat <= 0:
 			play(sfx_gun)
@@ -178,9 +182,16 @@ func _physics_process(delta):
 				d.x *= -1
 			bullet.set_position( get_position() + d )
 			get_parent().add_child(bullet)
-			
 	else:
 		gun_heat = 0
+	
+	var tx = 0
+	if is_shooting:
+		if facing_right:
+			tx = CAM_OFFSET
+		else:
+			tx = -CAM_OFFSET
+	camera.offset.x = lerp(camera.offset.x, tx, 0.1)
 	
 	# apply new animation if different
 	if anim != old_anim:

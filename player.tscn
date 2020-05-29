@@ -13,11 +13,11 @@ region = Rect2( 48, 0, 24, 20 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 72, 0, 24, 20 )
+region = Rect2( 0, 0, 24, 20 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 24, 20 )
+region = Rect2( 72, 0, 24, 20 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
@@ -40,12 +40,12 @@ animations = [ {
 }, {
 "frames": [ SubResource( 2 ) ],
 "loop": true,
-"name": "Slide",
+"name": "Idle",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 3 ) ],
 "loop": true,
-"name": "Idle",
+"name": "Slide",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 4 ), SubResource( 6 ) ],
@@ -82,3 +82,10 @@ stream = ExtResource( 4 )
 [node name="SfxWalk" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
 attenuation = 0.138696
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+drag_margin_top = 0.4
+editor_draw_drag_margin = true
