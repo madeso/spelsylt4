@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/leave-orbit.wav-88a113eb4baa05b5ab5e6ebbdb31ef9d.sample"
+
+[deps]
+
+source_file="res://leave-orbit.wav"
+dest_files=[ "res://.import/leave-orbit.wav-88a113eb4baa05b5ab5e6ebbdb31ef9d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
