@@ -39,6 +39,8 @@ const CAMERA_MAX_TRANSLATION_SHAKE = 10
 const CAMERA_TRAUMA_DECREASE = 0.7
 
 onready var bullet_scene = preload("res://bullet.tscn")
+onready var flash_scene = preload("res://flash.tscn")
+
 onready var sprite = $Sprite
 onready var camera = $Camera2D
 
@@ -204,15 +206,19 @@ func _physics_process(delta):
 		if gun_heat <= 0:
 			play(sfx_gun)
 			gun_heat += 0.1
+			var flash = flash_scene.instance()
 			var bullet = bullet_scene.instance()
 			bullet.facing_right = !sprite.flip_h
 			if anim == Anim.Slide:
 				bullet.facing_right = !bullet.facing_right
+			flash.flip_h = !bullet.facing_right
 			var d = Vector2(8, -4)
 			if !bullet.facing_right:
 				d.x *= -1
 			bullet.set_position( get_position() + d )
+			flash.set_position( get_position() + d )
 			get_parent().add_child(bullet)
+			get_parent().add_child(flash)
 	else:
 		gun_heat = 0
 	
