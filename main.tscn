@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://gui_theme.tres" type="Theme" id=2]
 [ext_resource path="res://small gui.tres" type="Theme" id=3]
+[ext_resource path="res://start.wav" type="AudioStream" id=4]
 
 [node name="root" type="Node2D"]
 
@@ -37,3 +38,7 @@ scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+autoplay = true
