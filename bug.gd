@@ -51,3 +51,8 @@ func _physics_process(_delta):
 			# check to see if we are going near a cliff
 			if !test_move(Transform2D(0, position + Vector2.RIGHT * dx * CLIFF_DISTANCE), Vector2.DOWN):
 				facing_right = !facing_right
+
+
+func _on_Area2D_body_entered(body):
+	if body.name == "Player":
+		get_tree().change_scene("res://gameover.tscn")
