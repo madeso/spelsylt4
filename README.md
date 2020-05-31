@@ -1,7 +1,15 @@
 # spelsylt4
-my entry in the kodsnack gamejam: spelsylt 4
+my entry in the kodsnack gamejam: spelsylt 4, about a stranded spaceman on a alien planet, using [a 2 color palette](https://lospec.com/palette-list/1bit-monitor-glow)
 
 [play at itch.io](https://madeso.itch.io/spelsylt4)
+
+## tools used
+
+* godot
+* sfxr
+* aseprite
+* tilesetter (lite)
+
 
 ## project log
 
