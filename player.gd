@@ -9,7 +9,7 @@ const MAX_SPEED = 64
 const GRAVITY = 400
 
 const WALL_SLIDE_SPEED = 12
-const WALL_SLIDE_CHANGE = 0.7
+const WALL_SLIDE_CHANGE = 400
 
 # jump while while jumping
 const JUMP_FORCE = 140
