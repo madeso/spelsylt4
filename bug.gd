@@ -27,14 +27,14 @@ func damage():
 		g.set_position( get_position() )
 		get_parent().add_child(g)
 		self.queue_free()
-		for n in range(5):
+		for _n in range(5):
 			gib()
 
 func _ready():
 	sprite.playing = true
 	pass # Replace with function body.
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var moving = is_on_floor()
 	var dx = 0
 	if moving:

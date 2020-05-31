@@ -8,7 +8,7 @@ func _ready():
 	sprite.play()
 
 
-func _process(delta):
+func _process(_delta):
 	if sprite.frame == 4:
 		sprite.visible = false
 	if sprite.visible == false and !sfx.playing:

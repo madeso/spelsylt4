@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://cinema-end.gd" type="Script" id=2]
+[ext_resource path="res://end.png" type="Texture" id=4]
+[ext_resource path="res://end-ufo.png" type="Texture" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 55, 27 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 5 )
+region = Rect2( 55, 0, 55, 27 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 5 )
+region = Rect2( 110, 0, 55, 27 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=5]
+resource_name = "start"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ufo:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 48, 112 ), Vector2( 344, 72 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("planet:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 80, 136 ), Vector2( -56, 208 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "cinema_done"
+} ]
+}
+
+[node name="main" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="space" type="Sprite" parent="."]
+position = Vector2( 160, 88 )
+texture = ExtResource( 4 )
+hframes = 2
+frame = 1
+
+[node name="planet" type="Sprite" parent="."]
+position = Vector2( -56, 208 )
+texture = ExtResource( 4 )
+hframes = 2
+
+[node name="ufo" type="AnimatedSprite" parent="."]
+position = Vector2( 344, 72 )
+frames = SubResource( 4 )
+playing = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
+anims/start = SubResource( 5 )
