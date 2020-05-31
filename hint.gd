@@ -5,13 +5,14 @@ onready var text = $center/panel/text
 export var help = ""
 
 func _ready():
-	visible = false
 	text.text = help
-
-
-func _on_Area2D2_body_entered(_body):
-	visible = true
-
-
-func _on_Area2D2_body_exited(_body):
 	visible = false
+
+func _on_Area2D2_body_entered(body):
+	if body.name == "Player":
+		visible = true
+
+
+func _on_Area2D2_body_exited(body):
+	if body.name == "Player":
+		visible = false
