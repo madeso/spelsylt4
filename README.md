@@ -19,5 +19,6 @@ my entry in the kodsnack gamejam: spelsylt 4
 | 10  | 27/5 |  2.0  | added some sounds and shooting a gun, started working on bug enemy |
 | 11  | 28/5 |  1.5  | added ai for bug, and spawning a few gibs when it is killed |
 | 12  | 29/5 |  2.0  | bug health and sounds, bullet hit effect and sound, larger world and camera movment and shake a bit when has fallen |
+| 13  | 30/5 |  2.0  | start screen, intro and outro cinematics and started on gameover screen |
 |  |  |  |  |
 
