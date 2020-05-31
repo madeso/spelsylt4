@@ -477,9 +477,6 @@ position = Vector2( 144, 144 )
 [node name="Tentacle" parent="." instance=ExtResource( 4 )]
 position = Vector2( 96, 168 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 56, 64 )
-
 [node name="bug" parent="." instance=ExtResource( 5 )]
 position = Vector2( 328, 224 )
 
@@ -809,4 +806,7 @@ position = Vector2( 1592, 768 )
 
 [node name="energy30" parent="." instance=ExtResource( 8 )]
 position = Vector2( 2040, 168 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 56, 64 )
 [connection signal="body_entered" from="go-to-next-level" to="go-to-next-level" method="_on_Area2D_body_entered"]
