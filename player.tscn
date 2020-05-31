@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://player.png" type="Texture" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -9,52 +9,53 @@
 [ext_resource path="res://hardland.wav" type="AudioStream" id=7]
 [ext_resource path="res://land.wav" type="AudioStream" id=8]
 [ext_resource path="res://semihardland.wav" type="AudioStream" id=9]
+[ext_resource path="res://pickup.wav" type="AudioStream" id=10]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 24, 20 )
+region = Rect2( 72, 0, 24, 20 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 24, 20 )
+region = Rect2( 48, 0, 24, 20 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 72, 0, 24, 20 )
+region = Rect2( 0, 0, 24, 20 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 24, 20 )
+region = Rect2( 24, 0, 24, 20 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 24, 0, 24, 20 )
+region = Rect2( 48, 0, 24, 20 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 24, 20 )
+region = Rect2( 0, 0, 24, 20 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
 "frames": [ SubResource( 1 ) ],
 "loop": true,
-"name": "Jump",
+"name": "Slide",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 2 ) ],
 "loop": true,
-"name": "Idle",
+"name": "Jump",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 3 ) ],
-"loop": true,
-"name": "Slide",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 4 ), SubResource( 6 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 3 ), SubResource( 5 ) ],
 "loop": true,
 "name": "Walk",
 "speed": 8.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
@@ -101,3 +102,6 @@ stream = ExtResource( 9 )
 
 [node name="SfxHardLand" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
+
+[node name="SfxPickupEnergy" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )

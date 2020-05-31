@@ -65,6 +65,7 @@ onready var sfx_walk = $SfxWalk
 onready var sfx_land = $SfxLand
 onready var sfx_semihardland = $SfxSemiHardLand
 onready var sfx_hardland = $SfxHardLand
+onready var sfx_pickup = $SfxPickupEnergy
 
 func add_trauma(val):
 	trauma = clamp(trauma + val, 0, 1)
@@ -81,6 +82,9 @@ func _ready():
 	holding_jump = false
 	wall_timer = 0
 	old_anim = Anim.Unknown
+	
+func pickup_energy():
+	play(sfx_pickup)
 	
 func _physics_process(delta):
 	var x_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
